@@ -146,7 +146,6 @@ jobs:
       - check-running-allowed
     if: needs.check-running-allowed.outputs.result == 'true' && needs.check-running-allowed.outputs.commit_sha != ''
     secrets:
-      YA_YT_TOKEN: ${{ secrets.YA_YT_TOKEN }}
       YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
       YC_VM_USERNAME: ${{ secrets.YC_VM_USERNAME }}
