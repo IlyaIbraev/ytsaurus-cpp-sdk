@@ -11,7 +11,7 @@ env:
 jobs:
   run-check:
     name: Run check
-    uses: ./.github/actions/run-check
+    uses: ./.github/workflows/run-check.yaml
     secrets:
       YC_SA_JSON_CREDENTIALS:
         required: true
