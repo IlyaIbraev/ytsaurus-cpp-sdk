@@ -1,0 +1,45 @@
+name: Check
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
+jobs:
+  run-check:
+    name: Run check
+    uses: ./.github/actions/run-check
+    secrets:
+      YC_SA_JSON_CREDENTIALS:
+        required: true
+      GH_PERSONAL_ACCESS_TOKEN:
+        required: true
+      YC_VM_USERNAME:
+        required: true
+      YC_VM_SSH_PUBLIC_KEY:
+        required: true
+
+  send-notifications:
+    name: Send notifications
+    needs:
+      - run-check
+    runs-on: trampoline
+    if: ${{ failure() }}
+    steps:
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          disable_web_page_preview: true
+          format: markdown
+          message: |
+            Workflow *${{github.workflow}}* failed: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}.
+            Git ${{github.ref_type}}: *${{github.ref_name}}*.
+            Commit:
+            ```
+            ${{github.event.head_commit.message}}
+            ```
