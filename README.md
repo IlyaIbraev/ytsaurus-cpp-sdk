@@ -13,3 +13,4 @@ Refer to the [documentation](https://ytsaurus.tech/docs/en/api/cpp/description) 
 We are glad to welcome new contributors!
 
 Please read the [contributor's guide](CONTRIBUTING.md) and the [styleguide](yt/styleguide/styleguide.md) for more details.
+
